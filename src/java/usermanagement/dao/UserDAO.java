@@ -8,9 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import usermanagemen.model.User;
+import usermanagement.model.User;
 
 /**
  *
@@ -44,6 +46,7 @@ public class UserDAO {
         User user = null;
         try (Connection connect = new ConnectDB().getConnection();
                 PreparedStatement statement = connect.prepareStatement(SELECT_USER_BY_ID)){
+            //set parameter for sql query
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             while(rs.next()) {
@@ -56,6 +59,51 @@ public class UserDAO {
             printSQLException(ex);
         }
         return user;
+    }
+    
+    public List<User> selectAllUser() {
+        List<User> users = new ArrayList<User>();
+        try(Connection connection = new ConnectDB().getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_ALL_USERS)) {
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String country = rs.getString("country");
+                users.add(new User(id, name, email, country));
+            }
+        } catch (Exception e) {
+        }
+        return users;
+    }
+    
+    public boolean deleteUser (int id) throws ClassNotFoundException {
+        boolean rowIsDelete = false;
+        try (Connection connect = new ConnectDB().getConnection(); PreparedStatement statement = connect.prepareStatement(DELETE_USERS_SQL)){
+            statement.setInt(1, id);
+            int rowAffected = statement.executeUpdate();
+            if(rowAffected > 0) {
+                rowIsDelete = true;
+            }
+        } catch (SQLException ex) {
+            printSQLException(ex);
+        }
+         
+        return rowIsDelete;
+    } 
+    
+    public boolean updateUser(User user) throws ClassNotFoundException{
+        boolean update = false;
+        try (Connection connect = new ConnectDB().getConnection(); PreparedStatement statement = connect.prepareStatement(UPDATE_USERS_SQL)) {
+           statement.setInt(1, user.getId());
+           statement.setString(2, user.getName());
+           statement.setString(3, user.getEmail());
+           statement.setString(4, user.getCountry());
+           update = statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return update;
     }
     
     public void printSQLException(SQLException ex){

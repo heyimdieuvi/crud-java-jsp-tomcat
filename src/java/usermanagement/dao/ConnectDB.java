@@ -22,16 +22,16 @@ public class ConnectDB {
 
     public ConnectDB() {
         this.hostName = "localhost";
-        this.instance = "";
+        this.instance = "DIEUVI";
         this.port = "1433";
         this.dbName = "demo";
         this.userName = "sa";
-        this.password = "123456";
+        this.password = "sa123456";
     }
     
   private String urlString(){
-      return String.format("jdbc:sqlserver//:%s:%s;DatabaseName=%s;UserName=%s;Password=%s;",
-              this.hostName, this.port, this.dbName, this.userName, this.password);
+      return String.format("jdbc:sqlserver://%s%s:%s;DatabaseName=%s;UserName=%s;Password=%s;",
+              this.hostName, (this.instance.length() > 0?"\\" + this.instance : ""), this.port, this.dbName, this.userName, this.password);
   }  
   public Connection getConnection() throws ClassNotFoundException, SQLException{
       Connection connect = null;
@@ -40,3 +40,4 @@ public class ConnectDB {
       return connect;
   }
 }
+

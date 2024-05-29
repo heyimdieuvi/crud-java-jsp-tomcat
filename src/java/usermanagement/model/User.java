@@ -1,4 +1,4 @@
-package usermanagemen.model;
+package usermanagement.model;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
