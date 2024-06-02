@@ -62,7 +62,7 @@ public class UserDAO {
     }
     
     public List<User> selectAllUser() {
-        List<User> users = new ArrayList<User>();
+        List<User> users = new ArrayList<>();
         try(Connection connection = new ConnectDB().getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_ALL_USERS)) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {

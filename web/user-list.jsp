@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="usermanagement.web.UserServlet" %>
 <%@page import="usermanagement.model.User" %>
 <!DOCTYPE html>
@@ -64,8 +64,8 @@
                                 <c:out value="${user.country}"/>
                             </td>
                             <td>
-                                <a href="edit?id=<c:out value="${user.id}" />">Insert</a>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="delete?id=<c:out value="user.id"/>">Delete</a>                            
+                                <a href="edit?id=<c:out value="${user.id}" />">Edit</a>
+                                <a href="delete?id=<c:out value="${user.id}"/>">Delete</a>
                             </td>
                         </tr>
                         </c:forEach>

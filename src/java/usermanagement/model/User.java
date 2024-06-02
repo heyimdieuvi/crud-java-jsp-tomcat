@@ -1,5 +1,7 @@
 package usermanagement.model;
 
+import java.io.Serializable;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -10,7 +12,7 @@ package usermanagement.model;
  *
  * @author ADMIN
  */
-public class User {
+public class User implements Serializable{
     protected int id;
     protected String name;
     protected String email;

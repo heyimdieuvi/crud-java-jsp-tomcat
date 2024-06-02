@@ -3,8 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/FPT/Summer2024/PRJ301/jsp-servlet-jdbc-sql-crud-example/web/WEB-INF/web.xml</file>
             <file>file:/D:/FPT/Summer2024/PRJ301/jsp-servlet-jdbc-sql-crud-example/src/java/usermanagement/dao/ConnectDB.java</file>
             <file>file:/D:/FPT/Summer2024/PRJ301/jsp-servlet-jdbc-sql-crud-example/src/java/usermanagement/dao/UserDAO.java</file>
+            <file>file:/D:/FPT/Summer2024/PRJ301/jsp-servlet-jdbc-sql-crud-example/web/user-form.jsp</file>
+            <file>file:/D:/FPT/Summer2024/PRJ301/jsp-servlet-jdbc-sql-crud-example/src/java/usermanagement/web/UserServlet.java</file>
+            <file>file:/D:/FPT/Summer2024/PRJ301/jsp-servlet-jdbc-sql-crud-example/web/user-list.jsp</file>
         </group>
     </open-files>
 </project-private>

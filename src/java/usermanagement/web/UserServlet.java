@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,47 +20,51 @@ import usermanagement.model.User;
  */
 @WebServlet(name="UserServlet", urlPatterns={"/"})
 public class UserServlet extends HttpServlet {
+    
     private UserDAO userDAO;
     
     @Override
-    public void init() {
+    public void init(){
         userDAO = new UserDAO();
     }
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String action = request.getContextPath();
+        response.setCharacterEncoding("UTF-8");
         try {
-           switch(action) {
-               case "/new":
-                   showNewForm(request, response);
-                   break;
-               case "/insert": 
-                   insertUser(request, response);
-                   break;
-               case "/delete": 
-                   deleteUser(request, response);
-                   break;  
-               case "/edit":
-                   showEditForm(request, response);
-                   break;
-               case "/update":
-                   updateUser(request, response);
-                   break;
-               default:
-                   showListUser(request, response);
-                   break;
-        } 
-        } catch (Exception e) {
-            System.out.println(e);
-        } 
-        
+            String action = request.getServletPath();
+            switch(action) {
+                case "/new":
+                    request.getRequestDispatcher("user-form.jsp").forward(request, response);
+                    break;
+                case "/insert":
+                    insertUser(request, response);
+                    break;
+                case "/delete":
+                    deleteUser(request, response);
+                    break;
+                case "/edit":
+                    showEditForm(request, response);
+                    break;
+                case "/update":
+                    updateUser(request, response);
+                    break;
+                default:
+                    showListUser(request, response);
+                    break;
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        response.setCharacterEncoding("UTF-8");
         doGet(request, response);
     }
     
@@ -67,8 +73,7 @@ public class UserServlet extends HttpServlet {
     throws ServletException, IOException {
         List<User> listUser = userDAO.selectAllUser();
         request.setAttribute("listUser", listUser);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user-list.jsp");
-        dispatcher.forward(request, response);
+        request.getRequestDispatcher("user-list.jsp").forward(request, response);
     }
     
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) 
@@ -89,7 +94,7 @@ public class UserServlet extends HttpServlet {
     //If insert a exist id -> ???
     private void insertUser (HttpServletRequest request, HttpServletResponse response) 
     throws ServletException, IOException, ClassNotFoundException, SQLException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = 0;
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String country = request.getParameter("country");
