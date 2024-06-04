@@ -95,10 +95,10 @@ public class UserDAO {
     public boolean updateUser(User user) throws ClassNotFoundException{
         boolean update = false;
         try (Connection connect = new ConnectDB().getConnection(); PreparedStatement statement = connect.prepareStatement(UPDATE_USERS_SQL)) {
-           statement.setInt(1, user.getId());
-           statement.setString(2, user.getName());
-           statement.setString(3, user.getEmail());
-           statement.setString(4, user.getCountry());
+           statement.setInt(4, user.getId());
+           statement.setString(1, user.getName());
+           statement.setString(2, user.getEmail());
+           statement.setString(3, user.getCountry());
            update = statement.executeUpdate() > 0;
         } catch (SQLException e) {
             printSQLException(e);

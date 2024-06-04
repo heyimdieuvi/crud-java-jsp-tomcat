@@ -36,10 +36,7 @@ public class UserServlet extends HttpServlet {
             String action = request.getServletPath();
             switch(action) {
                 case "/new":
-                    request.getRequestDispatcher("user-form.jsp").forward(request, response);
-                    break;
-                case "/insert":
-                    insertUser(request, response);
+                    showNewForm(request, response);
                     break;
                 case "/delete":
                     deleteUser(request, response);
@@ -47,16 +44,11 @@ public class UserServlet extends HttpServlet {
                 case "/edit":
                     showEditForm(request, response);
                     break;
-                case "/update":
-                    updateUser(request, response);
-                    break;
                 default:
                     showListUser(request, response);
                     break;
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     } 
@@ -65,7 +57,22 @@ public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");
-        doGet(request, response);
+        try {
+            String action = request.getServletPath();
+            switch(action) {
+                case "/insert":
+                    insertUser(request, response);
+                    break;
+                case "/update":
+                    updateUser(request, response);
+                    break;
+                default:
+                    showListUser(request, response);
+                    break;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     //show all user
@@ -94,20 +101,19 @@ public class UserServlet extends HttpServlet {
     //If insert a exist id -> ???
     private void insertUser (HttpServletRequest request, HttpServletResponse response) 
     throws ServletException, IOException, ClassNotFoundException, SQLException {
-        int id = 0;
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String country = request.getParameter("country");
-        User newUser = new User (id, name, email, country);
+        User newUser = new User (name, email, country);
         userDAO.insertUser(newUser);
-        response.sendRedirect("list");
+        response.sendRedirect("abv");
     }
     
     private void deleteUser (HttpServletRequest request, HttpServletResponse response) 
     throws ServletException, IOException, ClassNotFoundException {
         int id = Integer.parseInt(request.getParameter("id"));
         userDAO.deleteUser(id);
-        response.sendRedirect("list");
+        response.sendRedirect("abc");
         
     }
 

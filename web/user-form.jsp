@@ -22,47 +22,55 @@
                 </nav>
             </header>
             <br>
-            <div class="container col-md-5">
-                <div class="card">
-                    <div class="card-body">
+            <div class="container col-md-5 card">
+                <div class="container">
+                    <h2 class="text-center" style="margin-top: 10px">
+                    <c:if test="${user != null}">
+                        Edit User
+                    </c:if>
+                    <c:if test="${user == null}">
+                        Add New User
+                    </c:if>
+                    </h2>
                         <c:if test="${user != null}">
                             <form action="update" method="post">
+                                <input type="hidden" value="${user.id}" name="id">
+                                <div class="form-group">
+                                    <label class="h4">Name: </label>
+                                    <input type="text" class="form-control" value="<c:out value="${user.name}"/>" name="name">
+                                </div>
+                                <div class="form-group">
+                                    <label class="h4">Email: </label>
+                                    <input type="text" class="form-control" value="<c:out value="${user.email}"/>" name="email">
+                                </div>
+                                <div class="form-group">
+                                    <label class="h4">Country: </label>
+                                    <input type="text" class="form-control" value="<c:out value="${user.email}"/>" name="country">
+                                </div>
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </form>
                         </c:if>
-                        <c:if test="${user == null}">
+                    <c:if test="${user == null}">
                             <form action="insert" method="post">
+                                <div class="form-group">
+                                    <label class="h4">Name: </label>
+                                    <input type="text" class="form-control" value="${param.name}" name="name">
+                                </div>
+                                <div class="form-group">
+                                    <label class="h4">Email: </label>
+                                    <input type="text" class="form-control" value="${param.name}" name="email">
+                                </div>
+                                <div class="form-group">
+                                    <label class="h4">Country: </label>
+                                    <input type="text" class="form-control" value="${param.name}" name="country">
+                                </div>
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </form>
                         </c:if>
-                        <caption>
-                            <h2>
-                                <c:if test="${user != null}">
-                                    Edit User
-                                </c:if>
-                                <c:if test="${user == null}">
-                                    Add New User
-                                </c:if>
-                            </h2>
-                        </caption>
-
-                        <c:if test="${user != null}">
-                            <input type="hidden" name="id" value="<c:out value='${user.id}' />" />
-                        </c:if>
-
-                        <fieldset class="form-group">
-                            <label>User Name</label> <input type="text" value="<c:out value='${user.name}' />" class="form-control" name="name" required="required">
-                        </fieldset>
-
-                        <fieldset class="form-group">
-                            <label>User Email</label> <input type="text" value="<c:out value='${user.email}' />" class="form-control" name="email">
-                        </fieldset>
-
-                        <fieldset class="form-group">
-                            <label>User Country</label> <input type="text" value="<c:out value='${user.country}' />" class="form-control" name="country">
-                        </fieldset>
-
-                        <button type="submit" class="btn btn-success">Save</button>
-                        </form>
-                    </div>
                 </div>
+                
             </div>
+                
         </body>
 
         </html>

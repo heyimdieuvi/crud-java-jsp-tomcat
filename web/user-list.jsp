@@ -63,9 +63,9 @@
                             <td>
                                 <c:out value="${user.country}"/>
                             </td>
-                            <td>
-                                <a href="edit?id=<c:out value="${user.id}" />">Edit</a>
-                                <a href="delete?id=<c:out value="${user.id}"/>">Delete</a>
+                            <td style="display: grid; column-gap: 5px ">
+                                <a class="btn btn-info" href="edit?id=<c:out value="${user.id}" />">Edit</a>
+                                <a class="btn btn-info" href="delete?id=<c:out value="${user.id}"/>">Delete</a>
                             </td>
                         </tr>
                         </c:forEach>
